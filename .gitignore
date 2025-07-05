@@ -2,3 +2,4 @@
 /better-data-visualizations copy.pdf
 .idea/*
  __pycache__/*
+ .DS_Store
