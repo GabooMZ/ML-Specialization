@@ -1,10 +1,9 @@
 
 
-# Supervised Machine Learning: Regression and Classification
-### Certification by Deeplearning.AI on Coursera
+# Machine Learning Specialization
+### Specialization by Deeplearning.AI on Coursera
 
-Repository which contains my notes, practices, code, and explanations to Coursera's "Supervised Machine Learning: Regression and Classification" by Deeplearning.AI taught by Andrew NG
-
+Repository which contains my notes, practices, code, and explanations to Coursera's "Machine Learning Specialization" by Deeplearning.AI taught by Andrew NG
 
 ### Machine Learning: Supervised vs. Unsupervised Learning
 ```mermaid
