@@ -14,7 +14,7 @@ graph TD
 
     %% Supervised Learning Branch (Highlighted)
     B --> D["<b>🚀 Definition:</b> Learns from <i>labeled data</i><br><b>🎯 Goal:</b> Predict future outcomes"]
-    D --> E["<b>🔷 Key Algorithms:</b><br> - <b style="color:red">Linear/Logistic Regression</b><br> - <b>Decision Trees</b><br> - <b>Random Forest</b><br> - <b>SVM</b><br> - <b>Neural Networks</b>"]
+    D --> E["<b>🔷 Key Algorithms:</b><br> - <b>Linear/Logistic Regression</b><br> - <b>Decision Trees</b><br> - <b>Random Forest</b><br> - <b>SVM</b><br> - <b>Neural Networks</b>"]
     D --> F["<b>💡 Use Cases:</b><br> - <b>Spam Detection</b><br> - <b>Image Classification</b><br> - <b>Price Prediction</b>"]
 
     %% Unsupervised Learning Branch (Subdued)
