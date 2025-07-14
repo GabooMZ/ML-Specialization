@@ -1,48 +1,8 @@
-import numpy as np
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.activations import linear, sigmoid, relu
+# UNIT TESTS
 from tensorflow.keras.activations import sigmoid as tf_keras_sigmoid
+from tensorflow.keras.layers import Dense
 
-def test_my_softmax(target):
-    z = np.array([1., 2., 3., 4.])
-    a = target(z)
-    atf = tf.nn.softmax(z)
-    
-    assert np.allclose(a, atf, atol=1e-10), f"Wrong values. Expected {atf}, got {a}"
-    
-    z = np.array([np.log(0.1)] * 10)
-    a = target(z)
-    atf = tf.nn.softmax(z)
-    
-    assert np.allclose(a, atf, atol=1e-10), f"Wrong values. Expected {atf}, got {a}"
-    
-    print("\033[92m All tests passed.")
-    
-def test_model(target, classes, input_size):
-    target.build(input_shape=(None,input_size))
-    
-    assert len(target.layers) == 3, \
-        f"Wrong number of layers. Expected 3 but got {len(target.layers)}"
-    assert target.input.shape.as_list() == [None, input_size], \
-        f"Wrong input shape. Expected [None,  {input_size}] but got {target.input.shape.as_list()}"
-    i = 0
-    expected = [[Dense, [None, 25], relu],
-                [Dense, [None, 15], relu],
-                [Dense, [None, classes], linear]]
-
-    for layer in target.layers:
-        assert type(layer) == expected[i][0], \
-            f"Wrong type in layer {i}. Expected {expected[i][0]} but got {type(layer)}"
-        assert layer.output.shape.as_list() == expected[i][1], \
-            f"Wrong number of units in layer {i}. Expected {expected[i][1]} but got {layer.output.shape.as_list()}"
-        assert layer.activation == expected[i][2], \
-            f"Wrong activation in layer {i}. Expected {expected[i][2]} but got {layer.activation}"
-        i = i + 1
-
-    print("\033[92mAll tests passed!")
-
+import numpy as np
 
 def test_c1(target):
     assert len(target.layers) == 3, \
@@ -64,81 +24,80 @@ def test_c1(target):
         i = i + 1
 
     print("\033[92mAll tests passed!")
-
-
+    
 def test_c2(target):
+    
     def linear(a):
         return a
-
+    
     def linear_times3(a):
         return a * 3
-
+    
     x_tst = np.array([1., 2., 3., 4.])  # (1 examples, 3 features)
-    W_tst = np.array([[1., 2.], [1., 2.], [1., 2.], [1., 2.]])  # (3 input features, 2 output features)
+    W_tst = np.array([[1., 2.], [1., 2.], [1., 2.], [1., 2.]]) # (3 input features, 2 output features)
     b_tst = np.array([0., 0.])  # (2 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
     assert A_tst.shape[0] == len(b_tst)
     assert np.allclose(A_tst, [10., 20.]), \
         "Wrong output. Check the dot product"
-
+    
     b_tst = np.array([3., 5.])  # (2 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
     assert np.allclose(A_tst, [13., 25.]), \
         "Wrong output. Check the bias term in the formula"
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear_times3)
     assert np.allclose(A_tst, [39., 75.]), \
         "Wrong output. Did you apply the activation function at the end?"
-
-    print("\033[92mAll tests passed!")
-
-
+    
+    print("\033[92mAll tests passed!")  
+    
 def test_c3(target):
+    
     def linear(a):
         return a
-
+    
     def linear_times3(a):
         return a * 3
-
+    
     x_tst = np.array([1., 2., 3., 4.])  # (1 examples, 3 features)
-    W_tst = np.array([[1., 2.], [1., 2.], [1., 2.], [1., 2.]])  # (3 input features, 2 output features)
+    W_tst = np.array([[1., 2.], [1., 2.], [1., 2.], [1., 2.]]) # (3 input features, 2 output features)
     b_tst = np.array([0., 0.])  # (2 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
     assert A_tst.shape[0] == len(b_tst)
     assert np.allclose(A_tst, [10., 20.]), \
         "Wrong output. Check the dot product"
-
+    
     b_tst = np.array([3., 5.])  # (2 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
     assert np.allclose(A_tst, [13., 25.]), \
         "Wrong output. Check the bias term in the formula"
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear_times3)
     assert np.allclose(A_tst, [39., 75.]), \
         "Wrong output. Did you apply the activation function at the end?"
-
+    
     x_tst = np.array([[1., 2., 3., 4.], [5., 6., 7., 8.]])  # (2 examples, 4 features)
-    W_tst = np.array(
-        [[1., 2., 3.], [4., 5., 6.], [7., 8., 9.], [10., 11., 12]])  # (3 input features, 2 output features)
+    W_tst = np.array([[1., 2., 3.], [4., 5., 6.], [7., 8., 9.], [10., 11., 12]]) # (3 input features, 2 output features)
     b_tst = np.array([0., 0., 0.])  # (2 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
     assert A_tst.shape == (2, 3)
-    assert np.allclose(A_tst, [[70., 80., 90.], [158., 184., 210.]]), \
+    assert np.allclose(A_tst, [[ 70.,  80.,  90.], [158., 184., 210.]]), \
         "Wrong output. Check the dot product"
-
+    
     b_tst = np.array([3., 5., 6])  # (3 features)
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear)
-    assert np.allclose(A_tst, [[73., 85., 96.], [161., 189., 216.]]), \
+    assert np.allclose(A_tst, [[ 73.,  85.,  96.], [161., 189., 216.]]), \
         "Wrong output. Check the bias term in the formula"
-
+    
     A_tst = target(x_tst, W_tst, b_tst, linear_times3)
-    assert np.allclose(A_tst, [[219., 255., 288.], [483., 567., 648.]]), \
+    assert np.allclose(A_tst, [[ 219.,  255.,  288.], [483., 567., 648.]]), \
         "Wrong output. Did you apply the activation function at the end?"
-
-    print("\033[92mAll tests passed!")
+    
+    print("\033[92mAll tests passed!")  

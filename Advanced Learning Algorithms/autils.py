@@ -11,7 +11,24 @@ dlcolors = [dlblue, dlorange, dldarkred, dlmagenta, dlpurple]
 plt.style.use('deeplearning.mplstyle')
 
 
-def load_data():
+def load_data_w1():
+    X = np.load("data/X.npy")
+    y = np.load("data/y.npy")
+    X = X[0:1000]
+    y = y[0:1000]
+    return X, y
+
+def load_weights():
+    w1 = np.load("data/w1.npy")
+    b1 = np.load("data/b1.npy")
+    w2 = np.load("data/w2.npy")
+    b2 = np.load("data/b2.npy")
+    return w1, b1, w2, b2
+
+def sigmoid(x):
+    return 1. / (1. + np.exp(-x))
+
+def load_data_w2():
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
     return X, y
@@ -200,4 +217,16 @@ def display_digit(X):
     X_reshaped = X.reshape((20,20)).T
     # Display the image
     ax.imshow(X_reshaped, cmap='gray')
+    plt.show()
+    
+    
+def plot_loss_tf(history):
+    fig,ax = plt.subplots(1,1, figsize = (4,3))
+    widgvis(fig)
+    ax.plot(history.history['loss'], label='loss')
+    ax.set_ylim([0, 2])
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel('loss (cost)')
+    ax.legend()
+    ax.grid(True)
     plt.show()
