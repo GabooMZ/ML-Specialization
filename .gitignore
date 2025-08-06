@@ -1,6 +1,9 @@
 /anaconda_projects/
-/better-data-visualizations copy.pdf
 .idea/*
- __pycache__/*
- DS_Store
-Advanced Learning Algorithms/__pycache__/
+.idea
+__pycache__/
+*/__pycache__
+*/.DS_Store
+.DS_Store
+.gitignore
+**/anaconda_projects
